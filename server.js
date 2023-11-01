@@ -49,7 +49,7 @@ class webPassword {
 
 function createNewWP(user, webName, Username, Password) {
     const newWP = new webPassword(webName, Username, Password);
-    if (pushNewWP(user, newWP)) {
+    if (pushNewWP(JSON.parse(user).id, newWP)) {
         return newWP;
     }
     return false;

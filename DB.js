@@ -32,12 +32,11 @@ function getSpecificWebPassword(idUser, idWebPassword) {
     }
 }
 
-function pushNewWP(user, newWP) {
-    const Juser = JSON.parse(user);
+function pushNewWP(id, newWP) {
     const usersArr = getUsers();
 
     for (let u of usersArr) {
-        if (u.id === Juser.id) {
+        if (u.id === id) {
             u.webPasswords.push(newWP);
             localStorage.setItem('users', JSON.stringify(usersArr));
             return true;
