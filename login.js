@@ -3,41 +3,33 @@ const app = document.getElementById('app');
 const currPage = document.getElementById('currPage');
 
 document.addEventListener('DOMContentLoaded', () => {
-    // if (localStorage.getItem('currUser')) {
-    //     switchPage('app');
-    // } else {
     let temp = login;
     let content = temp.content;
     currPage.appendChild(content.cloneNode(true));
-    // }
     document.getElementById("submit").addEventListener("click", checkUserExistence)
 })
 
-
-
 function checkUserExistence() {
-    //server
     const name = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    // open('POST', '//API/users//', JSON.stringify({ name: name, password: password }))
+    const current = JSON.parse(sessionStorage.getItem("currUser"));
+    const fajax = new FXMLHttpRequest();
+    fajax.open("POST", `//API/users/${current.id}`);
+    fajax.onload = function () {
+        const response = JSON.parse(this.response);
+        if (response) {
+            sessionStorage.setItem('currUser', JSON.stringify(response));
+            switchPage(app);
+            openPasswordList()
 
-    // const usersStr = localStorage.getItem("users");
-    // const usersArr = JSON.parse(usersStr);
-    // for (element of usersArr) {
-    //     console.log('element.username: ', element.username);
-    //     console.log('element: ', element);
-    //     if (element.GetUsername === name && element.GetPassword === password) {
-    //change the current user to the one who logged in
-    const usersStr = localStorage.getItem("users");
-    const usersArr = JSON.parse(usersStr);
-    sessionStorage.setItem('currUser', JSON.stringify(usersArr[0]));
-    //client
-    switchPage(app);
-    openPasswordList()
-    return;
-    // }
-    // }
-    // alert("one field or more is wrong")
+        } else {
+            alert("one field or more is wrong")
+        }
+    }
+    fajax.send(JSON.stringify({
+        password,
+        username: name
+    }))
 }
 
 function switchPage(temp) {
@@ -61,21 +53,14 @@ function openPasswordList() {
     console.log('current.id: ', current.id);
     xhttp.open('GET', "//API/passwords/" + current.id + "//")
     xhttp.onload = function () {
-        const passwordsList = xhttp.response;
-        console.log('client passwordsList: ', passwordsList);
+        const passwordsList = JSON.parse(xhttp.response);
         if (passwordsList) {
-            if (passwordsList.length === 0) {
-                const listDiv = document.getElementById("listOfPasswords")
-                const passDiv = document.createElement("div")
-                passDiv.textContent = "your password list is empty"
-                listDiv.appendChild(passDiv)
-            }
-            for (pW of passwordsList) {
-                const listDiv = document.getElementById("listOfPasswords")
-                const passDiv = document.createElement("div")
-                passDiv.textContent = "Website: " + pW.webName + " | Username: " + pW.userNameW + " | Password: " + pW.passwordW;
-                listDiv.appendChild(passDiv)
-            }
+                for (pW of passwordsList) {
+                    const listDiv = document.getElementById("listOfPasswords")
+                    const passDiv = document.createElement("div")
+                    passDiv.textContent = "Website: " + pW.webName + " | Username: " + pW.userNameW + " | Password: " + pW.passwordW;
+                    listDiv.appendChild(passDiv)
+                }
         }
         else {
             alert("error");
@@ -90,13 +75,13 @@ function addNewPassword() {
     const webUserName = document.getElementById('newUserName').value;
     const webPassword = document.getElementById('newPassword').value;
     const current = JSON.parse(sessionStorage.getItem('currUser'));
-    //somwhow sends as FAJAX 
     const fajax = new FXMLHttpRequest();
     fajax.open("POST", `//API/passwords/${current.id}`);
     fajax.onload = function () {
-        if (this.response) {
+        const response = JSON.parse(this.response);
+        if (response) {
             const newWPdiv = document.createElement('div');
-            newWPdiv.textContent = 'Website: ' + this.response.webName + ' | Username: ' + this.response.userNameW + ' | Password: ' + this.response.passwordW;
+            newWPdiv.textContent = 'Website: ' + response.webName + ' | Username: ' + response.userNameW + ' | Password: ' + response.passwordW;
             document.getElementById('listOfPasswords').appendChild(newWPdiv);
         } else {
             alert("error")
