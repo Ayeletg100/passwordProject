@@ -89,16 +89,22 @@ function addNewPassword() {
     const webName = document.getElementById('newWebName').value;
     const webUserName = document.getElementById('newUserName').value;
     const webPassword = document.getElementById('newPassword').value;
-    const current = sessionStorage.getItem('currUser');
+    const current = JSON.parse(sessionStorage.getItem('currUser'));
     //somwhow sends as FAJAX 
-    const response = createNewWP(current, webName, webUserName, webPassword);// an obj returned
-    if (response) {
-        const newWPdiv = document.createElement('div');
-        newWPdiv.textContent = 'Website: ' + response.webName + ' | Username: ' + response.userNameW + ' | Password: ' + response.passwordW;
-        document.getElementById('listOfPasswords').appendChild(newWPdiv);
+    const fajax = new FXMLHttpRequest();
+    fajax.open("POST", `//API/passwords/${current.id}`);
+    fajax.onload = function () {
+        if (this.response) {
+            const newWPdiv = document.createElement('div');
+            newWPdiv.textContent = 'Website: ' + this.response.webName + ' | Username: ' + this.response.userNameW + ' | Password: ' + this.response.passwordW;
+            document.getElementById('listOfPasswords').appendChild(newWPdiv);
+        } else {
+            alert("error")
+        }
     }
-    else {
-        alert("error")
-    }
-
+    fajax.send(JSON.stringify({
+        webName,
+        passwordW: webPassword,
+        userNameW: webUserName
+    }))
 }
