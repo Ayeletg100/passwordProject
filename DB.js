@@ -1,5 +1,6 @@
 function main() {
-    const user = new User('e', '123');
+    const wp = new webPassword()
+    const user = new User('e', '123' ,wb);
     localStorage.setItem('users', JSON.stringify([user]));
 }
 // main();
@@ -12,9 +13,6 @@ function getWebPasswords(id) {
     const usersArr = JSON.parse(localStorage.getItem("users"));
     for (user of usersArr) {
         if (user.id == id) {
-            console.log('user: ', user);
-
-            console.log('user.webPasswords: ', user.webPasswords);
             return user.webPasswords;
         }
     }
@@ -31,20 +29,20 @@ function getSpecificWebPassword(idUser, idWebPassword) {
         }
     }
 }
-    function pushNewWP(user, newWP) {
-      
-        const Juser=JSON.parse(user);
-        const usersArr = getUsers();
+function pushNewWP(user, newWP) {
 
-        for (u of usersArr) {
-            if (u.id === Juser.id) {
-                u.webPasswords.push(newWP);
-                localStorage.setItem('users', JSON.stringify(usersArr));
-                return true;
-            }
+    const Juser = JSON.parse(user);
+    const usersArr = getUsers();
+
+    for (u of usersArr) {
+        if (u.id === Juser.id) {
+            u.webPasswords.push(newWP);
+            localStorage.setItem('users', JSON.stringify(usersArr));
+            return true;
         }
-        return false;
     }
+    return false;
+}
 
 
 

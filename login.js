@@ -1,7 +1,6 @@
 const login = document.getElementById('login');
 const app = document.getElementById('app');
 const currPage = document.getElementById('currPage');
-// const DB1= new DB();
 
 document.addEventListener('DOMContentLoaded', () => {
     // if (localStorage.getItem('currUser')) {
@@ -20,8 +19,8 @@ function checkUserExistence() {
     //server
     const name = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    open('POST', '//API/users//', JSON.stringify({ name: name, password: password }))
-    
+    // open('POST', '//API/users//', JSON.stringify({ name: name, password: password }))
+
     // const usersStr = localStorage.getItem("users");
     // const usersArr = JSON.parse(usersStr);
     // for (element of usersArr) {
@@ -57,25 +56,32 @@ function switchPage(temp) {
 
 //shows the list of the passwords
 function openPasswordList() {
-    //fajax
-    const passwordsList = getPasswordList(JSON.parse(sessionStorage.getItem("currUser")))
-    if (passwordsList) {
-        if (passwordsList.length === 0) {
-            const listDiv = document.getElementById("listOfPasswords")
-            const passDiv = document.createElement("div")
-            passDiv.textContent = "your password list is empty"
-            listDiv.appendChild(passDiv)
+    const xhttp = new FXMLHttpRequest();
+    const current = JSON.parse(sessionStorage.getItem("currUser"));
+    console.log('current.id: ', current.id);
+    xhttp.open('GET', "//API/passwords/" + current.id + "//")
+    xhttp.onload = function () {
+        const passwordsList = xhttp.response;
+        console.log('client passwordsList: ', passwordsList);
+        if (passwordsList) {
+            if (passwordsList.length === 0) {
+                const listDiv = document.getElementById("listOfPasswords")
+                const passDiv = document.createElement("div")
+                passDiv.textContent = "your password list is empty"
+                listDiv.appendChild(passDiv)
+            }
+            for (pW of passwordsList) {
+                const listDiv = document.getElementById("listOfPasswords")
+                const passDiv = document.createElement("div")
+                passDiv.textContent = "Website: " + pW.webName + " | Username: " + pW.userNameW + " | Password: " + pW.passwordW;
+                listDiv.appendChild(passDiv)
+            }
         }
-        for (pW of passwordsList) {
-            const listDiv = document.getElementById("listOfPasswords")
-            const passDiv = document.createElement("div")
-            passDiv.textContent = "Website: " + pW.webName + " | Username: " + pW.userNameW + " | Password: " + pW.passwordW;
-            listDiv.appendChild(passDiv)
+        else {
+            alert("error");
         }
     }
-    else {
-        alert("error");
-    }
+    xhttp.send();
 }
 
 
