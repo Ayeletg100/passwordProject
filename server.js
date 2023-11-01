@@ -46,11 +46,7 @@ class webPassword {
 
 
 
-function getPasswordList(user) {
-    //ask db
-    const passwordsList = getWebPasswords(user.id);
-    return passwordsList;
-}
+
 
 function createNewWP(user, webName, Username, Password) {
     const newWP = new webPassword(webName, Username, Password);
@@ -58,5 +54,46 @@ function createNewWP(user, webName, Username, Password) {
         return newWP;
     }
     return false;
+}
+
+// URL OF LOAD OF ALL THE PASSWORDS - //API/passwords/1//
+// URL OF ADD OF A NEW PASSWORD - //API/passwords/1//
+// URL OF LOG-IN A USER'S ACCOUNT - //API/users//
+function figure(method, url, obj){
+    if(method==='GET'){
+        //  load MODE 
+        
+        if(/^\/\/API\//.test(url)===false){
+
+            alert('ERROR: the URL isnt legit, cannot complete the request.');
+        }
+        else{
+            if(/\/passwords\//.test(url) && /\d/){
+                let arr = url.split('/');
+                for (let i = 0; i < arr.length; i++) {
+                    if(!isNaN(arr[i]))
+                    {
+                        const id=parseInt(arr[i]);
+                        const passwordsList= getWebPasswords(id);
+                        return passwordsList;
+                    }     
+                    
+                }
+                
+            }
+        }
+
+    }
+
+    if( method==='POST'){
+        if(/^\/\/API\//.test(url)===false){
+
+            alert('ERROR: the URL isnt legit, cannot complete the request.');
+        }
+
+    else{
+        if()
+    }
+    }
 
 }
