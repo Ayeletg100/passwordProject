@@ -13,7 +13,7 @@ function getWebPasswords(id) {
 
     const usersArr = JSON.parse(localStorage.getItem("users"));
     for (user of usersArr) {
-        ;
+        
         if (user.id == id) {
             //need to change
             return user._webPasswords;
