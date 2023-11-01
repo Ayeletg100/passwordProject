@@ -5,7 +5,7 @@ class User {
         this._id = User.count;
         this._username = username;
         this._password = password;
-        this._webPasswords = [new webPassword("google" , "e", "123")];
+        this._webPasswords = [];
         User.count++;
     }
 
@@ -38,7 +38,7 @@ class webPassword {
         return this.id;
     }
 
-    get userNameW() {
+    get username() {
         return this._userNameW;
     }
 
@@ -58,10 +58,20 @@ class webPassword {
     }
 }
 
+
 function getPasswordList(user) {
     console.log("server");
     //ask db
     const passwordsList = getWebPasswords(user.id);
     console.log('passwordsList: ', passwordsList);
     return passwordsList;
+}
+
+function createNewWP(user, webName, Username, Password){
+    const newWP=new webPassword(webName, Username, Password);
+    if(pushNewWP(user, newWP)){
+        return newWP;
+    }
+    return false;
+
 }
