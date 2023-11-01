@@ -1,7 +1,8 @@
 const login = document.getElementById('login');
 const app = document.getElementById('app');
 const currPage = document.getElementById('currPage');
-
+const DB1= new DB();
+DB.createDB();
 
 document.addEventListener('DOMContentLoaded', () => {
     // if (localStorage.getItem('currUser')) {
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // const user={username: "e" , password:"123"}
 // localStorage.setItem("users" , JSON.stringify([user]));
+
 
 function checkUserExistence() {
     //server
@@ -44,4 +46,11 @@ function switchPage(temp) {
         currPage.removeChild(currPage.children[0]);
     }
     currPage.appendChild(content.cloneNode(true));
+}
+
+
+document.getElementById('addWebPassword').addEventListener('click', addNewPassword)
+
+function addNewPassword(){
+
 }
