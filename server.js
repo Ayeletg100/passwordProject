@@ -9,7 +9,7 @@ class User {
         User.count++;
     }
 
-//doesn't work
+    //doesn't work
     get GetUsername() {
         return (this._username);
     }
@@ -18,7 +18,7 @@ class User {
         return (this._password);
     }
 
-    get webPasswords(){
+    get webPasswords() {
 
         return this._webPasswords;
     }
@@ -45,7 +45,7 @@ class webPassword {
     get password() {
         return this._passwordW;
     }
-    get webName(){
+    get webName() {
         return this._webName
     }
 
@@ -61,52 +61,65 @@ class webPassword {
 
 
 
-function createNewWP(user, webName, Username, Password){
-    const newWP=new webPassword(webName, Username, Password);
-    if(pushNewWP(user, newWP)){
+function createNewWP(user, webName, Username, Password) {
+    const newWP = new webPassword(webName, Username, Password);
+    if (pushNewWP(user, newWP)) {
         return newWP;
     }
     return false;
 }
 
 // URL OF LOAD OF ALL THE PASSWORDS - //API/passwords/1//
-// URL OF ADD OF A NEW PASSWORD - //API/passwords/1//
-// URL OF LOG-IN A USER'S ACCOUNT - //API/users//
-function figure(method, url, obj){
-    if(method==='GET'){
+
+function figure(method, url, obj) {
+    if (method === 'GET') {
         //  load MODE 
-        
-        if(/^\/\/API\//.test(url)===false){
+
+        if (/^\/\/API\//.test(url) === false) {
 
             alert('ERROR: the URL isnt legit, cannot complete the request.');
         }
-        else{
-            if(/\/passwords\//.test(url) && /\d/){
+        else {
+            if (/\/passwords\//.test(url) && /\d/) {
                 let arr = url.split('/');
                 for (let i = 0; i < arr.length; i++) {
-                    if(!isNaN(arr[i]))
-                    {
-                        const id=parseInt(arr[i]);
-                        const passwordsList= getWebPasswords(id);
+                    if (!isNaN(arr[i])) {
+                        const id = parseInt(arr[i]);
+                        const passwordsList = getWebPasswords(id);
                         return passwordsList;
-                    }     
-                    
+                    }
+
                 }
-                
+
             }
         }
 
     }
 
-    if( method==='POST'){
-        if(/^\/\/API\//.test(url)===false){
+    // URL OF ADD OF A NEW PASSWORD - //API/passwords/1//
+    // URL OF LOG-IN A USER'S ACCOUNT - //API/users//
+
+    if (method === 'POST') {
+        if (/^\/\/API\//.test(url) === false) {
 
             alert('ERROR: the URL isnt legit, cannot complete the request.');
         }
 
-    else{
-        if()
-    }
+        else {
+            // ADD MODE
+            if (/\/passwords\//.test(url) && /\d/) {
+                let arr = url.split('/');
+                for (let i = 0; i < arr.length; i++) {
+                    if (!isNaN(arr[i])) {
+                        const id = parseInt(arr[i]);
+                        const passwordsList = getWebPasswords(id);
+                        return passwordsList;
+                    }
+
+                }
+
+            }
+        }
     }
 
 }
