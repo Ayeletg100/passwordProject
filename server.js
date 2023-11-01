@@ -97,14 +97,18 @@ function figure(method, url, obj) {
 
                 let arr = url.split('/');
                 for (let i = 0; i < arr.length; i++) {
-                    if (!isNaN(arr[i])) {
+                    if (!isNaN(arr[i]) && arr[i] !== "") {
                         const id = parseInt(arr[i]);
 
-                        // create new wp
-                        // push it to user
+                        const wpParsed = JSON.parse(obj);
+                        const wp = new webPassword(wpParsed.webName, wpParsed.userNameW, wpParsed.passwordW)
 
-                        // const passwordsList = getWebPasswords(id);
-                        // return passwordsList;
+                        const userExists = pushNewWP(id, wp)
+                        if (!userExists) {
+                            return false;
+                        }
+
+                        return wp;
                     }
                 }
 
