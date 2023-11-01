@@ -9,14 +9,13 @@ function getUsers() {
 }
 
 function getWebPasswords(id) {
-    console.log("db");
-
     const usersArr = JSON.parse(localStorage.getItem("users"));
     for (user of usersArr) {
-        
         if (user.id == id) {
-            //need to change
-            return user._webPasswords;
+            console.log('user: ', user);
+
+            console.log('user.webPasswords: ', user.webPasswords);
+            return user.webPasswords;
         }
     }
     return false;
@@ -36,10 +35,10 @@ function getSpecificWebPassword(idUser, idWebPassword) {
       
         const Juser=JSON.parse(user);
         const usersArr = getUsers();
+
         for (u of usersArr) {
-            if (u._id === Juser._id) {
-                console.log(' u._webPasswords: ',  u.webPasswords);
-                u._webPasswords.push(newWP);
+            if (u.id === Juser.id) {
+                u.webPasswords.push(newWP);
                 localStorage.setItem('users', JSON.stringify(usersArr));
                 return true;
             }

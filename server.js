@@ -2,25 +2,11 @@ class User {
     static count = 1;
 
     constructor(username, password) {
-        this._id = User.count;
-        this._username = username;
-        this._password = password;
-        this._webPasswords = [];
+        this.id = User.count;
+        this.username = username;
+        this.password = password;
+        this.webPasswords = [];
         User.count++;
-    }
-
-    //doesn't work
-    get GetUsername() {
-        return (this._username);
-    }
-
-    get GetPassword() {
-        return (this._password);
-    }
-
-    get webPasswords() {
-
-        return this._webPasswords;
     }
 }
 
@@ -28,34 +14,34 @@ class webPassword {
     static count = 1;
 
     constructor(webName, userNameW, passwordW) {
-        this._id = webPassword.count;
-        this._webName = webName;
-        this._userNameW = userNameW;
-        this._passwordW = passwordW;
+        this.id = webPassword.count;
+        this.webName = webName;
+        this.userNameW = userNameW;
+        this.passwordW = passwordW;
         webPassword.count++;
     }
-    get id() {
-        return this.id;
-    }
+    // get id() {
+    //     return this.id;
+    // }
 
-    get username() {
-        return this._userNameW;
-    }
+    // get username() {
+    //     return this.userNameW;
+    // }
 
-    get password() {
-        return this._passwordW;
-    }
-    get webName() {
-        return this._webName
-    }
+    // get password() {
+    //     return this.passwordW;
+    // }
+    // get webName() {
+    //     return this.webName
+    // }
 
-    set userNameW(userNameW) {
-        this._userNameW = userNameW;
-    }
+    // set userNameW(userNameW) {
+    //     this.userNameW = userNameW;
+    // }
 
-    set passwordW(passwordW) {
-        this._passwordW = passwordW;
-    }
+    // set passwordW(passwordW) {
+    //     this.passwordW = passwordW;
+    // }
 }
 
 
