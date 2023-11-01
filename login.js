@@ -52,5 +52,14 @@ function switchPage(temp) {
 document.getElementById('addWebPassword').addEventListener('click', addNewPassword)
 
 function addNewPassword(){
+    const webName=document.getElementById('newWebName').value;
+    const webUserName=document.getElementById('newUserName').value;
+    const webPassword=document.getElementById('newPassword').value;
+    //somwhow sends as FAJAX 
+    const response= undefined;// an obj returned
+    const newWPdiv = document.createElement('div');
+    newWPdiv.textContent= response.webName + 'Username:' + response.username +'Password:'+response.password; 
+    document.getElementById('listOfPasswords').appendChild(newWPdiv);
+
 
 }
