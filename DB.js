@@ -2,17 +2,19 @@ function main() {
     const user = new User('e', '123');
     localStorage.setItem('users', JSON.stringify([user]));
 }
+// main();
 
 function getUsers() {
-    return localStorage.getItem("users");
+    return JSON.parse(localStorage.getItem("users"));
 }
 
 function getWebPasswords(id) {
     console.log("db");
 
     const usersArr = JSON.parse(localStorage.getItem("users"));
-    for (user of usersArr) {;
-        if (user.id ==id) {
+    for (user of usersArr) {
+        ;
+        if (user.id == id) {
             //need to change
             return user._webPasswords;
         }
@@ -30,8 +32,21 @@ function getSpecificWebPassword(idUser, idWebPassword) {
         }
     }
 }
+    function pushNewWP(user, newWP) {
+      
+        const Juser=JSON.parse(user);
+        const usersArr = getUsers();
+        for (u of usersArr) {
+            if (u._id === Juser._id) {
+                console.log(' u._webPasswords: ',  u.webPasswords);
+                u._webPasswords.push(newWP);
+                localStorage.setItem('users', JSON.stringify(usersArr));
+                return true;
+            }
+        }
+        return false;
+    }
 
-main();
 
 
 // function change(key, value) {

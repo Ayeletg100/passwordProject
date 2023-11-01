@@ -49,6 +49,10 @@ function switchPage(temp) {
         currPage.removeChild(currPage.children[0]);
     }
     currPage.appendChild(content.cloneNode(true));
+    document.getElementById('addWebPassword').addEventListener('click', (e) => {
+        e.preventDefault()
+        addNewPassword()
+    });    
 }
 
 //shows the list of the passwords
@@ -62,7 +66,7 @@ function openPasswordList() {
             passDiv.textContent = "your password list is empty"
             listDiv.appendChild(passDiv)
         }
-        for (pW of passwordsList){
+        for (pW of passwordsList) {
             const listDiv = document.getElementById("listOfPasswords")
             const passDiv = document.createElement("div")
             passDiv.textContent = "website: "+ pW._webName+ " | username: "+ pW._userNameW + " | password: "+pW._passwordW;
@@ -75,13 +79,21 @@ function openPasswordList() {
 }
 
 
-function addNewPassword(){
-    const webName=document.getElementById('newWebName').value;
-    const webUserName=document.getElementById('newUserName').value;
-    const webPassword=document.getElementById('newPassword').value;
+function addNewPassword() {
+    const webName = document.getElementById('newWebName').value;
+    const webUserName = document.getElementById('newUserName').value;
+    const webPassword = document.getElementById('newPassword').value;
+    const current = sessionStorage.getItem('currUser');
     //somwhow sends as FAJAX 
-    const response= undefined;// an obj returned
-    const newWPdiv = document.createElement('div');
-    newWPdiv.textContent= response.webName + 'Username:' + response.username +'Password:'+response.password; 
-    document.getElementById('listOfPasswords').appendChild(newWPdiv);
+    const response = createNewWP(current, webName, webUserName, webPassword);// an obj returned
+    if (response) {
+        const newWPdiv = document.createElement('div');
+        newWPdiv.textContent = 'Website: ' +response.webName + ' | Username: ' + response.username + ' | Password: ' + response.password;
+        console.log('response.webNam: ', response.webName);
+        document.getElementById('listOfPasswords').appendChild(newWPdiv);
+    }
+    else {
+        alert("error")
+    }
+
 }
