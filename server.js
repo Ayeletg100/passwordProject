@@ -93,18 +93,24 @@ function figure(method, url, obj) {
 
         else {
             // ADD MODE
-            if (/\/passwords\//.test(url) && /\d/) {
+            if (/\/passwords\//.test(url) && /\d/.test(url)) {
+
                 let arr = url.split('/');
                 for (let i = 0; i < arr.length; i++) {
                     if (!isNaN(arr[i])) {
                         const id = parseInt(arr[i]);
-                        const passwordsList = getWebPasswords(id);
-                        return passwordsList;
-                    }
 
+                        // create new wp
+                        // push it to user
+
+                        // const passwordsList = getWebPasswords(id);
+                        // return passwordsList;
+                    }
                 }
 
             }
+            // LOG-IN MODE
+            // else if () { }
         }
     }
 
