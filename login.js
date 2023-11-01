@@ -65,7 +65,7 @@ function openPasswordList() {
         for (pW of passwordsList){
             const listDiv = document.getElementById("listOfPasswords")
             const passDiv = document.createElement("div")
-            passDiv.textContent = "website: "+ pW._webName+ ", username: "+ pW._userNameW + ", password: "+pW._passwordW;
+            passDiv.textContent = "website: "+ pW._webName+ " | username: "+ pW._userNameW + " | password: "+pW._passwordW;
             listDiv.appendChild(passDiv)
         }
     }
@@ -84,6 +84,4 @@ function addNewPassword(){
     const newWPdiv = document.createElement('div');
     newWPdiv.textContent= response.webName + 'Username:' + response.username +'Password:'+response.password; 
     document.getElementById('listOfPasswords').appendChild(newWPdiv);
-
-
 }
