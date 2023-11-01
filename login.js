@@ -14,14 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById("submit").addEventListener("click", checkUserExistence)
 })
 
-// const user={username: "e" , password:"123"}
-// localStorage.setItem("users" , JSON.stringify([user]));
 
 
 function checkUserExistence() {
     //server
-    // const name = document.getElementById("username").value;
-    // const password = document.getElementById("password").value;
+    const name = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    open('POST', '//API/users//', JSON.stringify({ name: name, password: password }))
+    
     // const usersStr = localStorage.getItem("users");
     // const usersArr = JSON.parse(usersStr);
     // for (element of usersArr) {
@@ -52,7 +52,7 @@ function switchPage(temp) {
     document.getElementById('addWebPassword').addEventListener('click', (e) => {
         e.preventDefault()
         addNewPassword()
-    });    
+    });
 }
 
 //shows the list of the passwords
@@ -69,12 +69,12 @@ function openPasswordList() {
         for (pW of passwordsList) {
             const listDiv = document.getElementById("listOfPasswords")
             const passDiv = document.createElement("div")
-            passDiv.textContent = "website: "+ pW._webName+ " | username: "+ pW._userNameW + " | password: "+pW._passwordW;
+            passDiv.textContent = "Website: " + pW.webName + " | Username: " + pW.userNameW + " | Password: " + pW.passwordW;
             listDiv.appendChild(passDiv)
         }
     }
     else {
-        console.log("error");
+        alert("error");
     }
 }
 
@@ -88,8 +88,7 @@ function addNewPassword() {
     const response = createNewWP(current, webName, webUserName, webPassword);// an obj returned
     if (response) {
         const newWPdiv = document.createElement('div');
-        newWPdiv.textContent = 'Website: ' +response.webName + ' | Username: ' + response.username + ' | Password: ' + response.password;
-        console.log('response.webNam: ', response.webName);
+        newWPdiv.textContent = 'Website: ' + response.webName + ' | Username: ' + response.userNameW + ' | Password: ' + response.passwordW;
         document.getElementById('listOfPasswords').appendChild(newWPdiv);
     }
     else {
