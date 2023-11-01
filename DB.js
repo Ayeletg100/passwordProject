@@ -8,19 +8,17 @@ class User{
         this._webPasswords=[];
         User.count++;
     }
+    // get username(){
 
-    get username(){
-
-    }
+    // }
 }
-
-
 
 class webPassword{
     static count= 1;
 
     constructor(webName, userNameW,passwordW ){
         this.id= webPassword.count;
+        this._webName=webName;
         this._userNameW=userNameW;
         this._passwordW=passwordW;
         webPassword.count++;
@@ -45,11 +43,6 @@ class webPassword{
         this.passwordW=passwordW;
     }
 }
-
-const songs = []
-songs.push(new Song('Happy', 'pharell wiliams'));
-localStorage.setItem("songs", JSON.stringify(songs))
-
 
 function change(key, value){
    let currentuser= JSON.parse(localStorage.getItem(currentuser));
