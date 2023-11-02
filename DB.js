@@ -1,6 +1,6 @@
 function main() {
     const wp = new webPassword()
-    const user = new User('e', '123' ,wb);
+    const user = new User('e', '123' ,wp);
     localStorage.setItem('users', JSON.stringify([user]));
 }
 // main();
@@ -32,7 +32,6 @@ function getSpecificWebPassword(idUser, idWebPassword) {
 
 function pushNewWP(id, newWP) {
     const usersArr = getUsers();
-
     for (let u of usersArr) {
         if (u.id === id) {
             u.webPasswords.push(newWP);

@@ -47,7 +47,7 @@ function figure(method, url, obj) {
                     if (!isNaN(arr[i]) && arr[i] !== "") {
                         const id = parseInt(arr[i]);
                         const passwordsList = getWebPasswords(id);
-                        return passwordsList;
+                        return JSON.stringify(passwordsList);
                     }
                 }
             }
@@ -74,22 +74,30 @@ function figure(method, url, obj) {
 
                         const wpParsed = JSON.parse(obj);
                         const wp = new webPassword(wpParsed.webName, wpParsed.userNameW, wpParsed.passwordW)
-
                         const userExists = pushNewWP(id, wp)
                         if (!userExists) {
                             return false;
                         }
-
-                        return wp;
+                        return JSON.stringify(wp);
                     }
                 }
 
             }
             // LOG-IN MODE
-            else if () {
-                
-             }
+            else if (/\/users\/\//.test(url)) {
+                const userParsed = JSON.parse(obj);
+                const userExists = checkIfUserExist(userParsed);
+                return JSON.stringify(userExists);
+            }
         }
     }
-
+}
+function checkIfUserExist(user) {
+    const usersArr = getUsers();
+    for (let element of usersArr) {
+        if (element.username === user.username && element.password === user.password) {
+            return element;
+        }
+    }
+    return false;
 }
