@@ -86,7 +86,9 @@ function figure(method, url, obj) {
 
             }
             // LOG-IN MODE
-            // else if () { }
+            else if () {
+                
+             }
         }
     }
 
