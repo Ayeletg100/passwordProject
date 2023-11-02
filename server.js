@@ -2,33 +2,33 @@ class User {
     static count = 1;
 
     constructor(username, password) {
-        this.id = User.count;
+        this.id =  User.count;
         this.username = username;
         this.password = password;
-        this.webPasswords = [];
+        this.webPasswords = [];  
         User.count++;
     }
 }
 
 class webPassword {
-    static count = 1;
-
+    
+    
     constructor(webName, userNameW, passwordW) {
-        this.id = webPassword.count;
+        this.id = getCountPassword()
         this.webName = webName;
         this.userNameW = userNameW;
         this.passwordW = passwordW;
-        webPassword.count++;
+        setCountPassword();
     }
 }
 
-function createNewWP(user, webName, Username, Password) {
-    const newWP = new webPassword(webName, Username, Password);
-    if (pushNewWP(JSON.parse(user).id, newWP)) {
-        return newWP;
-    }
-    return false;
-}
+// function createNewWP(user, webName, Username, Password) {
+//     const newWP = new webPassword(webName, Username, Password);
+//     if (pushNewWP(JSON.parse(user).id, newWP)) {
+//         return newWP;
+//     }
+//     return false;
+// }
 
 // URL OF LOAD OF ALL THE PASSWORDS - //API/passwords/1//
 

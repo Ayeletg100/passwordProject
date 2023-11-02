@@ -1,9 +1,19 @@
 function main() {
-    const wp = new webPassword()
-    const user = new User('e', '123' ,wp);
+    const user = new User('e', '123');
     localStorage.setItem('users', JSON.stringify([user]));
+    debugger;
+    localStorage.setItem('countPassword', "1");
 }
 // main();
+
+function getCountPassword(){
+    return JSON.parse(localStorage.getItem('countPassword'));   
+}
+function setCountPassword(){
+    const counterValue= getCountPassword()+1;
+    localStorage.setItem('countPassword',JSON.stringify(counterValue));
+}
+
 
 function getUsers() {
     return JSON.parse(localStorage.getItem("users"));
@@ -41,6 +51,8 @@ function pushNewWP(id, newWP) {
     }
     return false;
 }
+
+
 
 
 

@@ -40,9 +40,8 @@ function switchPage(temp) {
         currPage.removeChild(currPage.children[0]);
     }
     currPage.appendChild(content.cloneNode(true));
-    debugger;
-    const current=JSON.parse(sessionStorage.getItem('currUser')).username
-    document.getElementById("hi-user").textContent=`Hi ${current}`
+    const current = JSON.parse(sessionStorage.getItem('currUser')).username
+    document.getElementById("hi-user").textContent = `Hi ${current}`
     document.getElementById('addWebPassword').addEventListener('click', (e) => {
         e.preventDefault()
         addNewPassword()
@@ -57,12 +56,13 @@ function openPasswordList() {
     xhttp.onload = function () {
         const passwordsList = JSON.parse(xhttp.response);
         if (passwordsList) {
-                for (pW of passwordsList) {
-                    const listDiv = document.getElementById("listOfPasswords")
-                    const passDiv = document.createElement("div")
-                    passDiv.textContent = "Website: " + pW.webName + " | Username: " + pW.userNameW + " | Password: " + pW.passwordW;
-                    listDiv.appendChild(passDiv)
-                }
+            for (pW of passwordsList) {
+                const listDiv = document.getElementById("listOfPasswords")
+                const passDiv = document.createElement("div")
+                passDiv.textContent = "Website: " + pW.webName + " | Username: " + pW.userNameW + " | Password: " + pW.passwordW;
+                passDiv.classList.add(pW.id)
+                listDiv.appendChild(passDiv)
+            }
         }
         else {
             alert("server faild to execute your request");
@@ -84,6 +84,7 @@ function addNewPassword() {
         if (response) {
             const newWPdiv = document.createElement('div');
             newWPdiv.textContent = 'Website: ' + response.webName + ' | Username: ' + response.userNameW + ' | Password: ' + response.passwordW;
+            newWPdiv.classList.add(response.id)
             document.getElementById('listOfPasswords').appendChild(newWPdiv);
         } else {
             alert("server faild to execute your request");
