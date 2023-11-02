@@ -14,7 +14,8 @@ function checkUserExistence() {
     const password = document.getElementById("password").value;
     const current = JSON.parse(sessionStorage.getItem("currUser"));
     const fajax = new FXMLHttpRequest();
-    fajax.open("POST", `//API/users/${current.id}`);
+    debugger;
+    fajax.open("POST", `//API/users//`);
     fajax.onload = function () {
         const response = JSON.parse(this.response);
         if (response) {
@@ -50,7 +51,6 @@ function switchPage(temp) {
 function openPasswordList() {
     const xhttp = new FXMLHttpRequest();
     const current = JSON.parse(sessionStorage.getItem("currUser"));
-    console.log('current.id: ', current.id);
     xhttp.open('GET', "//API/passwords/" + current.id + "//")
     xhttp.onload = function () {
         const passwordsList = JSON.parse(xhttp.response);
