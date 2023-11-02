@@ -14,7 +14,6 @@ function checkUserExistence() {
     const password = document.getElementById("password").value;
     const current = JSON.parse(sessionStorage.getItem("currUser"));
     const fajax = new FXMLHttpRequest();
-    debugger;
     fajax.open("POST", `//API/users//`);
     fajax.onload = function () {
         const response = JSON.parse(this.response);
@@ -41,6 +40,9 @@ function switchPage(temp) {
         currPage.removeChild(currPage.children[0]);
     }
     currPage.appendChild(content.cloneNode(true));
+    debugger;
+    const current=JSON.parse(sessionStorage.getItem('currUser')).username
+    document.getElementById("hi-user").textContent=`Hi ${current}`
     document.getElementById('addWebPassword').addEventListener('click', (e) => {
         e.preventDefault()
         addNewPassword()
@@ -63,7 +65,7 @@ function openPasswordList() {
                 }
         }
         else {
-            alert("error");
+            alert("server faild to execute your request");
         }
     }
     xhttp.send();
@@ -84,7 +86,7 @@ function addNewPassword() {
             newWPdiv.textContent = 'Website: ' + response.webName + ' | Username: ' + response.userNameW + ' | Password: ' + response.passwordW;
             document.getElementById('listOfPasswords').appendChild(newWPdiv);
         } else {
-            alert("error")
+            alert("server faild to execute your request");
         }
     }
     fajax.send(JSON.stringify({

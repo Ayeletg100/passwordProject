@@ -5,7 +5,7 @@ class FXMLHttpRequest {
     }
     send(obj) {
         this.obj = obj;
-        const response = figure(this.method, this.url, this.obj);
+        const response = net(this.method, this.url, this.obj);
         this.response = response;
         this.onload();
     }
