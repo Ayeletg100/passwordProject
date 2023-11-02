@@ -29,16 +29,16 @@ function getWebPasswords(id) {
     return false;
 }
 
-function getSpecificWebPassword(idUser, idWebPassword) {
-    const currentWebPasswordLIST = getWebPasswords(idUser);
-    if (currentWebPasswordLIST) {
-        for (wp of currentWebPasswordLIST) {
-            if (wp.id === idWebPassword) {
-                return wp;
-            }
-        }
-    }
-}
+// function getSpecificWebPassword(idUser, idWebPassword) {
+//     const currentWebPasswordLIST = getWebPasswords(idUser);
+//     if (currentWebPasswordLIST) {
+//         for (wp of currentWebPasswordLIST) {
+//             if (wp.id === idWebPassword) {
+//                 return wp;
+//             }
+//         }
+//     }
+// }
 
 function pushNewWP(id, newWP) {
     const usersArr = getUsers();
@@ -52,6 +52,21 @@ function pushNewWP(id, newWP) {
     return false;
 }
 
+function removeWP(idUser, idWP){
+    const usersArr = getUsers();
+    const arrWP= getWebPasswords(idUser);
+    if(arrWP){
+        for(let i in arrWP){
+            if(arrWP[i].id===idWP){
+                arrWP.splice(i,1);
+                localStorage.setItem('users', JSON.stringify(usersArr));
+                return true;
+            }
+        }
+    }
+    return false;
+
+}
 
 
 

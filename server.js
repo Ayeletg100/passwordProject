@@ -2,17 +2,17 @@ class User {
     static count = 1;
 
     constructor(username, password) {
-        this.id =  User.count;
+        this.id = User.count;
         this.username = username;
         this.password = password;
-        this.webPasswords = [];  
+        this.webPasswords = [];
         User.count++;
     }
 }
 
 class webPassword {
-    
-    
+
+
     constructor(webName, userNameW, passwordW) {
         this.id = getCountPassword()
         this.webName = webName;
@@ -88,6 +88,26 @@ function figure(method, url, obj) {
                 const userParsed = JSON.parse(obj);
                 const userExists = checkIfUserExist(userParsed);
                 return JSON.stringify(userExists);
+            }
+        }
+    }
+    // URL OF DELETE A NEW PASSWORD - //API/passwords/1//
+    if (method === 'DELETE') {
+        if (/^\/\/API\//.test(url) === false) {
+
+            alert('ERROR: the URL isnt legit, cannot complete the request.');
+        }
+        else {
+            if (/\/passwords\//.test(url) && /\d/.test(url)) {
+                let arr = url.split('/');
+                for (let i = 0; i < arr.length; i++) {
+                    if (!isNaN(arr[i]) && arr[i] !== "") {
+                        const idUser = parseInt(arr[i]);
+                        const idWP = JSON.parse(obj);
+                        const passwordExists = removeWP(idUser, idWP)// needs id from send 
+                        return passwordExists;
+                    }
+                }
             }
         }
     }
